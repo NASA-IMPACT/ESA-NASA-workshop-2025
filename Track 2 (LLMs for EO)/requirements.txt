@@ -1,0 +1,8 @@
+langchain-aws
+bitsandbytes
+datasets
+langchain_community
+pypdf
+sentence-transformers
+faiss-cpu
+langchain_huggingface
