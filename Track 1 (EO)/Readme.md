@@ -1,7 +1,7 @@
 ## Using FM (Hands on)
 - Prithvi-EO (HLS) Paolo
-    - Single data
-    - Multiple Data (Carbon Flux)
+    - Single Data (Burn scars segmentation)
+    - Multi-temporal Data (Crop segmentation)
 - Prithvi-WxC  (smaller model) Sujit
     - Zero Shot
 - FastEO (TerraMind) JJ
