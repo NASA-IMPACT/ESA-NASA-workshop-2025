@@ -1,0 +1,22 @@
+# Common
+!pip3 install numpy==1.26.4
+
+# INDUS
+pandas
+accelerate
+transformers
+torch
+scikit-learn
+marvin
+bitsandbytes
+datasets
+
+# EVE
+langchain_community
+pypdf
+sentence-transformers
+faiss-cpu
+langchain_huggingface
+langchain_runpod
+qdrant_client
+langchain_aws
