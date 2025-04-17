@@ -1,5 +1,5 @@
 # Common
-!pip3 install numpy==1.26.4
+numpy==1.26.4
 
 # INDUS
 pandas
