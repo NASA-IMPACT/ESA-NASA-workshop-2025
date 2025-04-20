@@ -9,13 +9,15 @@ export PRITHVI_EO_ENV="prithvi_eo"
 export PRITHVI_WX_ENV="prithvi_wx"
 export LLM_ENV="indus_eve"
 
-if ! [ls -la | grep -q "ESA-NASA-workshop-2025"]
+if ! `ls -la | grep -q "ESA-NASA-workshop-2025"`
     then
         git -C /home/sagemaker-user clone $REPOSITORY_URL
 fi
 
+export QDRANT_URL='https://e186510c-4dd9-45c7-99a5-ae38c4c8bc36.us-east-1-0.aws.cloud.qdrant.io:6333'
+export API_KEY='rZYblMkzsiqiiuPqxXxmckfyMFIZ9Yg9EpxYxhbeFZj82MEOIbT5Fg'
 
-for env_name in $PRITHVI_EO_ENV $PRITHVI_WX_ENV $LLM_ENV
+for env_name in `ls /home/sagemaker-user/ESA-NASA-workshop-2025/environments/`
 do
   # commands to execute for each item
   if conda info --envs | grep -q $env_name
@@ -33,8 +35,10 @@ do
         fi
         conda activate $env_name
         pip install ipykernel
+        pip install -r "/home/sagemaker-user/ESA-NASA-workshop-2025/environments/$env_name/requirements.txt"
+        source "/home/sagemaker-user/ESA-NASA-workshop-2025/environments/$env_name/setup.sh"
         python -m ipykernel install --user --name $env_name --display-name "$env_name"
-        pip install -r "ESA-NASA-workshop-2025/$env_name/requirements.txt"
+        conda deactivate $env_name
   fi
   echo "Conda env: $env_name created"
 done

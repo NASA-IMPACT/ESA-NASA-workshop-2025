@@ -27,7 +27,7 @@ data:
   init_args:
     batch_size: 8
     num_workers: 2
-    data_root: multi-temporal-crop-classification-subset
+    data_root: ../data/multi-temporal-crop-classification-subset
     expand_temporal_dimension: true
     use_metadata: false
     reduce_zero_label: true

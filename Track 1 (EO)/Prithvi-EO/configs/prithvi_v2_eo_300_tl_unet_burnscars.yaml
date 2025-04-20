@@ -45,12 +45,10 @@ data:
       - 2
       - 1
       - 0
-    train_data_root: hls_burn_scars/data
-    val_data_root: hls_burn_scars/data
-    test_data_root: hls_burn_scars/data
-    train_split: hls_burn_scars/splits/train.txt
-    val_split: hls_burn_scars/splits/val.txt
-    test_split: hls_burn_scars/splits/test.txt
+    train_data_root: hls_burn_scars/data/training
+    val_data_root: hls_burn_scars/data/validation
+    test_data_root: hls_burn_scars/data/validation
+
     img_grep: "*_merged.tif"
     label_grep: "*.mask.tif"
     means:
@@ -115,4 +113,3 @@ lr_scheduler:
     monitor: val/loss
     factor: 0.5
     patience: 5
-

@@ -1,3 +1,0 @@
-terratorch==0.99.9
-gdown
-tensorboard
