@@ -14,9 +14,6 @@ if ! `ls -la | grep -q "ESA-NASA-workshop-2025"`
         git -C /home/sagemaker-user clone $REPOSITORY_URL
 fi
 
-export QDRANT_URL='https://e186510c-4dd9-45c7-99a5-ae38c4c8bc36.us-east-1-0.aws.cloud.qdrant.io:6333'
-export API_KEY='rZYblMkzsiqiiuPqxXxmckfyMFIZ9Yg9EpxYxhbeFZj82MEOIbT5Fg'
-
 for env_name in `ls /home/sagemaker-user/ESA-NASA-workshop-2025/environments/`
 do
   # commands to execute for each item
