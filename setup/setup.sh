@@ -21,11 +21,11 @@ function weather_setup {
   cd Prithvi-WxC; pip install ".[example]"
 
   # download small model weights from uah server.
-  mkdir "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 1 (EO)/Prithvi-WX/notebooks/data/weights/"
-  wget -O "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 1 (EO)/Prithvi-WX/notebooks/data/weights/prithvi.wxc.rollout.600m.v1.pt" https://www.nsstc.uah.edu/data/sujit.roy/demo/consolidated.pth
+  mkdir -p "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 1 (EO)/Prithvi-WX/data/weights/"
+  wget -O "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 1 (EO)/Prithvi-WX/data/weights/prithvi.wxc.rollout.600m.v1.pt" https://www.nsstc.uah.edu/data/sujit.roy/demo/consolidated.pth
 }
 
-function setup() {
+function setup {
   local env_name = "$1"
   if conda info --envs | grep -q $env_name
     then
