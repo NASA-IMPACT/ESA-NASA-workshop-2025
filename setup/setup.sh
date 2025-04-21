@@ -22,32 +22,34 @@ function weather_setup {
 
   # download small model weights from uah server.
   mkdir -p "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 1 (EO)/Prithvi-WX/data/weights/"
-  wget -O "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 1 (EO)/Prithvi-WX/data/weights/prithvi.wxc.rollout.600m.v1.pt" https://www.nsstc.uah.edu/data/sujit.roy/demo/consolidated.pth
+  wget -O "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 1 (EO)/Prithvi-WX/data/weights/prithvi.wxc.rollout.600m.v1.pt" https://www.nsstc.uah.edu/data/sujit.roy/demo/consolidated.pth --no-check-certificate
 }
 
 function setup {
-  local env_name = "$1"
+  local env_name="$1"
   if conda info --envs | grep -q $env_name
+  then
+    echo "$env_name already exists"
+  else
+    source /opt/conda/bin/activate
+    conda create -n $env_name python=3.12 -y -q
+    # Check if the environment was created successfully
+    if [ $? -eq 0 ]
     then
-        echo "$env_name already exists"
+      echo "Conda environment '$env_name' created successfully."
     else
-      source /opt/conda/bin/activate
-      conda create -n $env_name python=3.12 -y -q
-      # Check if the environment was created successfully
-      if [ $? -eq 0 ]; then
-        echo "Conda environment '$env_name' created successfully."
-      else
-        echo "Failed to create conda environment '$env_name'."
-        exit 1
-      fi
-      conda activate $env_name
-      pip install ipykernel
-      pip install -r "/home/sagemaker-user/ESA-NASA-workshop-2025/environments/$env_name/requirements.txt"
-      if [$env_name == "prithvi_wx"]
-      then
-        weather_setup
-      python -m ipykernel install --user --name $env_name --display-name "$env_name"
-      conda deactivate
+      echo "Failed to create conda environment '$env_name'."
+    exit 1
+    fi
+    conda activate $env_name
+    pip install ipykernel
+    pip install -r "/home/sagemaker-user/ESA-NASA-workshop-2025/environments/$env_name/requirements.txt"
+    if [ "$env_name" == "prithvi_wx" ]
+    then
+      weather_setup
+    fi
+    python -m ipykernel install --user --name $env_name --display-name "$env_name"
+    conda deactivate
   fi
   echo "Conda env: $env_name created"
 }
