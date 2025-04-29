@@ -1,7 +1,7 @@
 # Prepare workshop environment
 #!/bin/bash
 
-set -u
+set +u
 
 # Replace this with the URL of your git repository
 export REPOSITORY_URL="https://github.com/nasa-impact/ESA-NASA-workshop-2025.git"
@@ -10,9 +10,17 @@ export PRITHVI_WX_ENV="prithvi_wx"
 export LLM_ENV="indus_eve"
 
 if ! `ls -la | grep -q "ESA-NASA-workshop-2025"`
-    then
-        git -C /home/sagemaker-user clone $REPOSITORY_URL
+  then
+      git -C /home/sagemaker-user clone $REPOSITORY_URL
 fi
+
+function weather_model_download {
+  # download small model weights from uah server.
+  mkdir -p "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 1 (EO)/Prithvi-WX/data/weights/"
+  wget -O "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 1 (EO)/Prithvi-WX/data/weights/prithvi.wxc.rollout.600m.v1.pt" https://www.nsstc.uah.edu/data/sujit.roy/demo/consolidated.pth --no-check-certificate
+}
+
+export -f weather_model_download
 
 function weather_setup {
   # download weights for smaller model
@@ -20,9 +28,7 @@ function weather_setup {
   git clone https://github.com/NASA-IMPACT/Prithvi-WxC.git
   cd Prithvi-WxC; pip install ".[example]"
 
-  # download small model weights from uah server.
-  mkdir -p "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 1 (EO)/Prithvi-WX/data/weights/"
-  wget -O "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 1 (EO)/Prithvi-WX/data/weights/prithvi.wxc.rollout.600m.v1.pt" https://www.nsstc.uah.edu/data/sujit.roy/demo/consolidated.pth --no-check-certificate
+  weather_model_download
 }
 
 function setup {
@@ -31,7 +37,6 @@ function setup {
   then
     echo "$env_name already exists"
   else
-    source /opt/conda/bin/activate
     conda create -n $env_name python=3.12 -y -q
     # Check if the environment was created successfully
     if [ $? -eq 0 ]
@@ -54,9 +59,13 @@ function setup {
   echo "Conda env: $env_name created"
 }
 
+source /opt/conda/bin/activate
+conda install libsqlite --force-reinstall -y
+
 for env_name in `ls /home/sagemaker-user/ESA-NASA-workshop-2025/environments/`
 do
   # commands to execute for each item
-  setup $env_name &
+  setup $env_name
 done
-wait
+
+set -u
