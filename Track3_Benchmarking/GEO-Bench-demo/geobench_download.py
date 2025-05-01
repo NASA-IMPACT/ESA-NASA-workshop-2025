@@ -2,14 +2,10 @@
 
 import os
 
-os.environ["GEO_BENCH_DIR"] = "./geobench-1.0_test-zip"
-
 from pathlib import Path
 from huggingface_hub import HfApi, hf_hub_download
 from tqdm import tqdm
 import zipfile
-from geobench import GEO_BENCH_DIR
-
 
 def decompress_zip_with_progress(zip_file_path, extract_to_folder=None):
     """Decompress a zip file with a progress bar and remove the symlink."""
@@ -31,16 +27,18 @@ def decompress_zip_with_progress(zip_file_path, extract_to_folder=None):
     # remove zip file
     zip_file_path.unlink()
 
+geobench_subsample = ['segmentation_v1.0/m-nz-cattle.zip', 'classification_v1.0/m-eurosat.zip']
 
 def download_benchmark():
-    local_directory = Path(GEO_BENCH_DIR)
+    local_directory = Path("./geobench-1.0")
     dataset_repo = "recursix/geo-bench-1.0"
 
     local_directory.mkdir(parents=True, exist_ok=True)
 
     api = HfApi()
     dataset_files = api.list_repo_files(repo_id=dataset_repo, repo_type="dataset")
-
+    dataset_files = [x for x in dataset_files if x in geobench_subsample]
+    
     for file in dataset_files:
         local_file_path = local_directory / file
 
