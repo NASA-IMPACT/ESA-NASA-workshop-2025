@@ -20,3 +20,7 @@ langchain_huggingface
 langchain_runpod
 qdrant_client
 langchain_aws
+datasets
+transformers
+evaluate
+bert_score
