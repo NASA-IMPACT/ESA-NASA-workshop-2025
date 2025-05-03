@@ -1,0 +1,127 @@
+# lightning.pytorch==2.1.1
+seed_everything: 42
+trainer:
+  accelerator: auto
+  strategy: auto
+  devices: auto
+  num_nodes: 1
+  precision: 16-mixed
+  logger: true
+  callbacks:
+    - class_path: RichProgressBar
+    - class_path: LearningRateMonitor
+      init_args:
+        logging_interval: epoch
+  max_epochs: 100
+  log_every_n_steps: 5
+  default_root_dir: output/terramind_base_sen1floods11/
+
+data:
+  class_path: terratorch.datamodules.GenericMultiModalDataModule
+  init_args:
+    task: 'segmentation'
+    batch_size: 8
+    num_workers: 8
+    modalities:
+      - S2L1C
+      - S1GRD
+    rgb_modality: S2L1C
+    rgb_indices:
+      - 3
+      - 2
+      - 1
+    train_data_root:
+      S2L1C: sen1floods11_v1.1/data/S2L1CHand
+      S1GRD: sen1floods11_v1.1/data/S1GRDHand
+    train_label_data_root: sen1floods11_v1.1/data/LabelHand
+    val_data_root:
+      S2L1C: sen1floods11_v1.1/data/S2L1CHand
+      S1GRD: sen1floods11_v1.1/data/S1GRDHand
+    val_label_data_root: sen1floods11_v1.1/data/LabelHand
+    test_data_root:
+      S2L1C: sen1floods11_v1.1/data/S2L1CHand
+      S1GRD: sen1floods11_v1.1/data/S1GRDHand
+    test_label_data_root: sen1floods11_v1.1/data/LabelHand
+
+    train_split: sen1floods11_v1.1/splits/flood_train_data.txt
+    val_split: sen1floods11_v1.1/splits/flood_valid_data.txt
+    test_split: sen1floods11_v1.1/splits/flood_test_data.txt
+
+    # Adjust file suffixes if required or delete them
+    image_grep:
+      S2L1C: "*_S2Hand.tif"
+      S1GRD: "*_S1Hand.tif"
+    label_grep: "*_LabelHand.tif"
+
+    allow_substring_file_names: True
+    no_label_replace: -1
+    no_data_replace: 0
+    num_classes: 2
+
+    # TerraMind standardization values
+    means:
+      S2L1C: [2357.089, 2137.385, 2018.788, 2082.986, 2295.651, 2854.537, 3122.849, 3040.560, 3306.481, 1473.847, 506.070, 2472.825, 1838.929]
+      S2L2A: [1390.458, 1503.317, 1718.197, 1853.910, 2199.100, 2779.975, 2987.011, 3083.234, 3132.220, 3162.988, 2424.884, 1857.648]
+      S1GRD: [-12.599, -20.293]
+      S1RTC: [-10.93, -17.329]
+      RGB: [87.271, 80.931, 66.667]
+      DEM: [670.665]
+
+    stds:
+      S2L1C: [1624.683, 1675.806, 1557.708, 1833.702, 1823.738, 1733.977, 1732.131, 1679.732, 1727.26, 1024.687, 442.165, 1331.411, 1160.419]
+      S2L2A: [2106.761, 2141.107, 2038.973, 2134.138, 2085.321, 1889.926, 1820.257, 1871.918, 1753.829, 1797.379, 1434.261, 1334.311]
+      S1GRD: [5.195, 5.890]
+      S1RTC: [4.391, 4.459]
+      RGB: [58.767, 47.663, 42.631]
+      DEM: [951.272]
+
+    train_transform:
+      - class_path: albumentations.D4  # Random flip and rotations
+      - class_path: ToTensorV2
+
+model:
+  class_path: terratorch.tasks.SemanticSegmentationTask
+  init_args:
+    model_factory: EncoderDecoderFactory
+    model_args:
+      backbone: terramind_v1_base_tim  # large version: terramind_v1_large_tim
+      backbone_pretrained: true
+      backbone_modalities:
+        - S2L1C
+        - S1GRD
+      backbone_tim_modalities:
+        - LULC
+      backbone_merge_method: mean
+
+      necks:
+        - name: SelectIndices
+          indices: [2, 5, 8, 11]  # base version
+#          indices: [5, 11, 17, 23]  # large version
+        - name: ReshapeTokensToImage
+          remove_cls_token: False
+        - name: LearnedInterpolateToPyramidal
+
+      decoder: UNetDecoder
+      decoder_channels: [512, 256, 128, 64]
+
+      head_dropout: 0.1
+      num_classes: 2
+    loss: dice
+    ignore_index: -1
+    freeze_backbone: false
+    freeze_decoder: false
+    class_names:
+      - Others
+      - Flood
+
+optimizer:
+  class_path: torch.optim.AdamW
+  init_args:
+    lr: 2.e-5
+lr_scheduler:
+  class_path: ReduceLROnPlateau
+  init_args:
+    monitor: val/loss
+    factor: 0.5
+    patience: 5
+
