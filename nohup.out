@@ -1,0 +1,49 @@
+bash: source setup/setup.sh: No such file or directory
+bash: source setup/setup.sh: No such file or directory
+bash: /Users/iksha/projects/ESA-NASA-workshop-2025/source setup/setup.sh: No such file or directory
+bash: source /Users/iksha/projects/ESA-NASA-workshop-2025/setup/setup.sh: No such file or directory
+fatal: cannot change to '/home/sagemaker-user': No such file or directory
+/Users/iksha/projects/ESA-NASA-workshop-2025/setup/setup.sh: line 62: /opt/conda/bin/activate: No such file or directory
+Collecting package metadata (current_repodata.json): ...working... done
+Solving environment: ...working... done
+
+
+==> WARNING: A newer version of conda exists. <==
+  current version: 22.9.0
+  latest version: 25.3.1
+
+Please update conda by running
+
+    $ conda update -n base -c conda-forge conda
+
+
+
+## Package Plan ##
+
+  environment location: /Users/iksha/miniforge3/envs/indus
+
+  added / updated specs:
+    - libsqlite
+
+
+The following packages will be downloaded:
+
+    package                    |            build
+    ---------------------------|-----------------
+    ca-certificates-2025.4.26  |       hbd8a1cb_0         149 KB  conda-forge
+    ------------------------------------------------------------
+                                           Total:         149 KB
+
+The following packages will be UPDATED:
+
+  ca-certificates                      2025.1.31-hbd8a1cb_1 --> 2025.4.26-hbd8a1cb_0 None
+
+
+
+Downloading and Extracting Packages
+ca-certificates-2025 | 149 KB    |            |   0% ca-certificates-2025 | 149 KB    | #          |  11% ca-certificates-2025 | 149 KB    | ########## | 100% ca-certificates-2025 | 149 KB    | ########## | 100% 
+Preparing transaction: ...working... done
+Verifying transaction: ...working... done
+Executing transaction: ...working... done
+Retrieving notices: ...working... done
+ls: /home/sagemaker-user/ESA-NASA-workshop-2025/environments/: No such file or directory
