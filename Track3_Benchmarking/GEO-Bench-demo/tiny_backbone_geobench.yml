@@ -1,0 +1,125 @@
+experiment_name: geobench_experiment
+custom_modules_path: /home/sagemaker-user/ESA-NASA-workshop-2025/Track3_Benchmarking/GEO-Bench-demo/tiny_backbone
+defaults:
+  trainer_args:
+    max_epochs: 5
+    log_every_n_steps: 1
+  terratorch_task:
+    model_args:
+      backbone_pretrained: false
+      backbone: tiny_backbone
+    model_factory: EncoderDecoderFactory
+    optimizer: AdamW
+    
+tasks:
+  - name: eurosat
+    type: classification
+    direction: max
+    terratorch_task:
+      loss: ce
+      model_args:
+        backbone_in_channels: 3
+        num_classes: 10
+        decoder: IdentityDecoder
+    datamodule:
+      class_path: terratorch.datamodules.MEuroSATNonGeoDataModule
+      init_args:
+        partition: 1.00x_train
+        train_transform:
+          - class_path: albumentations.HorizontalFlip
+            init_args:
+              p: 0.5
+          - class_path: albumentations.VerticalFlip
+            init_args:
+              p: 0.5
+          - class_path: albumentations.Resize
+            init_args:
+              height: 224
+              width: 224
+          - class_path: ToTensorV2
+        val_transform:
+          - class_path: albumentations.Resize
+            init_args:
+              height: 224
+              width: 224
+          - class_path: ToTensorV2
+        test_transform:
+          - class_path: albumentations.Resize
+            init_args:
+              height: 224
+              width: 224
+          - class_path: ToTensorV2
+        batch_size: 16
+        num_workers: 6
+        data_root: "/home/sagemaker-user/ESA-NASA-workshop-2025/Track3_Benchmarking/GEO-Bench-demo/datasets/geobench-1.0/classification_v1.0"
+        bands:
+          - "RED"
+          - "GREEN"
+          - "BLUE"
+    metric: val/Overall_Accuracy
+  - name: nz_cattle
+    type: segmentation
+    direction: max
+    metric: val/Multiclass_Jaccard_Index
+    early_stop_patience: 5
+    terratorch_task:
+      loss: ce
+      model_args:
+        backbone_in_channels: 3
+        num_classes: 2
+        decoder: IdentityDecoder
+    datamodule:
+      class_path: terratorch.datamodules.MNzCattleNonGeoDataModule
+      init_args:
+        partition: 1.00x_train
+        train_transform:
+          - class_path: albumentations.HorizontalFlip
+            init_args:
+              p: 0.5
+          - class_path: albumentations.VerticalFlip
+            init_args:
+              p: 0.5
+          - class_path: albumentations.Resize
+            init_args:
+              height: 224
+              width: 224
+          - class_path: ToTensorV2
+        val_transform:
+          - class_path: albumentations.Resize
+            init_args:
+              height: 224
+              width: 224
+          - class_path: ToTensorV2
+        test_transform:
+          - class_path: albumentations.Resize
+            init_args:
+              height: 224
+              width: 224
+          - class_path: ToTensorV2
+        batch_size: 16
+        num_workers: 4
+        data_root: "/home/sagemaker-user/ESA-NASA-workshop-2025/Track3_Benchmarking/GEO-Bench-demo/datasets/geobench-1.0/segmentation_v1.0"
+        bands:
+          - "RED"
+          - "GREEN"
+          - "BLUE"
+
+n_trials: 2
+save_models: False
+storage_uri: /home/sagemaker-user/ESA-NASA-workshop-2025/Track3_Benchmarking/GEO-Bench-demo/mlflow
+run_repetitions: 2
+optimization_space:
+  batch_size:
+    - 8
+    - 16
+    - 32
+  lr:
+    min: 6e-5
+    max: 1e-3
+    type: real
+    log: true
+  optimizer_hparams:
+    weight_decay:
+      min: 0
+      max: 0.4
+      type: real
