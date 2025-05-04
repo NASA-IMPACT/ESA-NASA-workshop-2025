@@ -1,5 +1,5 @@
 # lightning.pytorch==2.1.1
-custom_modules_path: /home/sagemaker-user/ESA-NASA-workshop-2025/Track3_Benchmarking/GEO-Bench-demo/tiny_backbone
+custom_modules_path: "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 3 (Benchmarking)/GEO-Bench-demo/tiny_backbone"
 seed_everything: 42
 trainer:
   accelerator: auto
@@ -47,15 +47,15 @@ data:
       - 2
       - 1
       - 0
-    train_data_root: /home/sagemaker-user/ESA-NASA-workshop-2025/Track3_Benchmarking/GEO-Bench-demo/datasets/sen1flloods11/S2L2AHand
-    train_label_data_root: /home/sagemaker-user/ESA-NASA-workshop-2025/Track3_Benchmarking/GEO-Bench-demo/datasets/sen1flloods11/LabelHand
-    val_data_root:  /home/sagemaker-user/ESA-NASA-workshop-2025/Track3_Benchmarking/GEO-Bench-demo/datasets/sen1flloods11/S2L2AHand
-    val_label_data_root: /home/sagemaker-user/ESA-NASA-workshop-2025/Track3_Benchmarking/GEO-Bench-demo/datasets/sen1flloods11/LabelHand
-    test_data_root:  /home/sagemaker-user/ESA-NASA-workshop-2025/Track3_Benchmarking/GEO-Bench-demo/datasets/sen1flloods11/S2L2AHand
-    test_label_data_root: /home/sagemaker-user/ESA-NASA-workshop-2025/Track3_Benchmarking/GEO-Bench-demo/datasets/sen1flloods11/LabelHand
-    train_split: /home/sagemaker-user/ESA-NASA-workshop-2025/Track3_Benchmarking/GEO-Bench-demo/datasets/sen1flloods11/splits/flood_handlabeled/flood_train_data.txt
-    val_split: /home/sagemaker-user/ESA-NASA-workshop-2025/Track3_Benchmarking/GEO-Bench-demo/datasets/sen1flloods11/splits/flood_handlabeled/flood_valid_data.txt
-    test_split: /home/sagemaker-user/ESA-NASA-workshop-2025/Track3_Benchmarking/GEO-Bench-demo/datasets/sen1flloods11/splits/flood_handlabeled/flood_test_data.txt
+    train_data_root: "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 3 (Benchmarking)/GEO-Bench-demo/datasets/sen1flloods11/S2L2AHand"
+    train_label_data_root: "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 3 (Benchmarking)/GEO-Bench-demo/datasets/sen1flloods11/LabelHand"
+    val_data_root: "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 3 (Benchmarking)/GEO-Bench-demo/datasets/sen1flloods11/S2L2AHand"
+    val_label_data_root: "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 3 (Benchmarking)/GEO-Bench-demo/datasets/sen1flloods11/LabelHand"
+    test_data_root: "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 3 (Benchmarking)/GEO-Bench-demo/datasets/sen1flloods11/S2L2AHand"
+    test_label_data_root: "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 3 (Benchmarking)/GEO-Bench-demo/datasets/sen1flloods11/LabelHand"
+    train_split: "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 3 (Benchmarking)/GEO-Bench-demo/datasets/sen1flloods11/splits/flood_handlabeled/flood_train_data.txt"
+    val_split: "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 3 (Benchmarking)/GEO-Bench-demo/datasets/sen1flloods11/splits/flood_handlabeled/flood_valid_data.txt"
+    test_split: "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 3 (Benchmarking)/GEO-Bench-demo/datasets/sen1flloods11/splits/flood_handlabeled/flood_test_data.txt"
     check_stackability: false
     img_grep: "*_S2L2AHand.tif"
     label_grep: "*_LabelHand.tif"
