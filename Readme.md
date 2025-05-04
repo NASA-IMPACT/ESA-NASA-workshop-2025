@@ -27,7 +27,7 @@ Each track have notebooks that can be ran in the provided environment and are se
 5. Click `Create JupyterLab Space`
 ![JupyterLab spaces](images/create-jupyterlab-env.png)
 6. Give it a name. Eg: `Workshop`
-7. Once initialized, change Instance type to `ml.p3.2xlarge` and storage to `50`
+7. Once initialized, change Instance type to `ml.p3.2xlarge` and storage to `150`
 ![Change instance type](images/update-instance-type.png)
 8. Click on `Run Space`. If it throws an error, you might have to pick an Image. The top setting called `Latest` works.
 ![Run space](images/updated-instance-config.png)
@@ -76,6 +76,8 @@ conda activate base
 conda remove -n indus_eve --all -y
 conda remove -n prithvi_eo --all -y
 conda remove -n prithvi_wx --all -y
+conda remove -n terramind --all -y
+conda remove -n geo_bench --all -y
 
 source /home/sagemaker/ESA-NASA-workshop-2025/setup/setup.sh
 ```
