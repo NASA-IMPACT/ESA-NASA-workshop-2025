@@ -14,7 +14,7 @@ trainer:
         logging_interval: epoch
   max_epochs: 100
   log_every_n_steps: 5
-  default_root_dir: output/terramind_base_sen1floods11/
+  default_root_dir: ../output/terramind_base_sen1floods11/
 
 data:
   class_path: terratorch.datamodules.GenericMultiModalDataModule
@@ -31,21 +31,21 @@ data:
       - 2
       - 1
     train_data_root:
-      S2L1C: sen1floods11_v1.1/data/S2L1CHand
-      S1GRD: sen1floods11_v1.1/data/S1GRDHand
-    train_label_data_root: sen1floods11_v1.1/data/LabelHand
+      S2L1C: ../data/sen1floods11_v1.1/data/S2L1CHand
+      S1GRD: ../data/sen1floods11_v1.1/data/S1GRDHand
+    train_label_data_root: ../data/sen1floods11_v1.1/data/LabelHand
     val_data_root:
-      S2L1C: sen1floods11_v1.1/data/S2L1CHand
-      S1GRD: sen1floods11_v1.1/data/S1GRDHand
-    val_label_data_root: sen1floods11_v1.1/data/LabelHand
+      S2L1C: ../data/sen1floods11_v1.1/data/S2L1CHand
+      S1GRD: ../data/sen1floods11_v1.1/data/S1GRDHand
+    val_label_data_root: ../data/sen1floods11_v1.1/data/LabelHand
     test_data_root:
-      S2L1C: sen1floods11_v1.1/data/S2L1CHand
-      S1GRD: sen1floods11_v1.1/data/S1GRDHand
-    test_label_data_root: sen1floods11_v1.1/data/LabelHand
+      S2L1C: ../data/sen1floods11_v1.1/data/S2L1CHand
+      S1GRD: ../data/sen1floods11_v1.1/data/S1GRDHand
+    test_label_data_root: ../data/sen1floods11_v1.1/data/LabelHand
 
-    train_split: sen1floods11_v1.1/splits/flood_train_data.txt
-    val_split: sen1floods11_v1.1/splits/flood_valid_data.txt
-    test_split: sen1floods11_v1.1/splits/flood_test_data.txt
+    train_split: ../data/sen1floods11_v1.1/splits/flood_train_data.txt
+    val_split: ../data/sen1floods11_v1.1/splits/flood_valid_data.txt
+    test_split: ../data/sen1floods11_v1.1/splits/flood_test_data.txt
 
     # Adjust file suffixes if required or delete them
     image_grep:
