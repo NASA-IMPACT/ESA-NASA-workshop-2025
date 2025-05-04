@@ -1,1 +1,17 @@
 .venv
+**/data/
+**/datasets/
+.DS_Store
+*tt-it*
+*mlflow*
+*job*
+*repeated*
+*optuna*
+*pyc
+.DS_Store
+*tif
+*csv
+*logs*
+*checkpoint*
+*json
+*hdf5

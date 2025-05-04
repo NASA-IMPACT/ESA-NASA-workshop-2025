@@ -14,20 +14,20 @@ trainer:
         logging_interval: epoch
     - class_path: ModelCheckpoint
       init_args:
-          dirpath: output/multicrop/checkpoints
+          dirpath: ../output/multicrop/checkpoints
           mode: max
           monitor: val/Multiclass_Jaccard_Index
           filename: best-{epoch:02d}
   max_epochs: 1
   log_every_n_steps: 5
-  default_root_dir: output/multicrop/
+  default_root_dir: ../output/multicrop/
 
 data:
   class_path: terratorch.datamodules.MultiTemporalCropClassificationDataModule
   init_args:
     batch_size: 8
     num_workers: 2
-    data_root: multi-temporal-crop-classification-subset
+    data_root: ../data/multi-temporal-crop-classification-subset
     expand_temporal_dimension: true
     use_metadata: false
     reduce_zero_label: true
@@ -48,6 +48,7 @@ model:
       backbone: prithvi_eo_v2_300_tl
       backbone_pretrained: true
       backbone_num_frames: 3
+      backbone_in_channels: 6
       backbone_coords_encoding: []
       backbone_bands:
         - BLUE
@@ -62,8 +63,10 @@ model:
         - name: ReshapeTokensToImage
           effective_time_dim: 3
         - name: LearnedInterpolateToPyramidal
-      decoder: UNetDecoder
-      decoder_channels: [512, 256, 128, 64]
+      decoder: UperNetDecoder
+      head_channel_list: [128, 64]
+      decoder_channels: 256
+      decoder_scale_modules: True
       head_dropout: 0.1
       num_classes: 13
     loss: ce
@@ -82,4 +85,3 @@ lr_scheduler:
     monitor: val/loss
     factor: 0.5
     patience: 5
-

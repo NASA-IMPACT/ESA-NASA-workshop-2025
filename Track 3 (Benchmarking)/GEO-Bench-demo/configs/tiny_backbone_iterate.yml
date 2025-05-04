@@ -1,0 +1,110 @@
+experiment_name: quick_test3
+custom_modules_path: "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 3 (Benchmarking)/GEO-Bench-demo/tiny_backbone"
+defaults:
+  trainer_args:
+    max_epochs: 5
+    log_every_n_steps: 1
+  terratorch_task:
+    model_args:
+      backbone_pretrained: false
+      backbone: tiny_backbone
+    model_factory: EncoderDecoderFactory
+    optimizer: AdamW
+
+tasks:
+  - name: sen1floods11
+    type: segmentation
+    direction: max
+    metric: val/Multiclass_Jaccard_Index
+    early_stop_patience: 5
+    terratorch_task:
+      loss: ce
+      model_args:
+        num_classes: 2
+        backbone_in_channels: 6
+        decoder: IdentityDecoder
+      ignore_index: -1
+    datamodule:
+      class_path: terratorch.datamodules.GenericNonGeoSegmentationDataModule
+      init_args:
+        # partition: 1.0x_train
+        batch_size: 4
+        num_workers: 4
+        constant_scale: 0.0001
+        dataset_bands:
+          - COASTAL_AEROSOL
+          - BLUE
+          - GREEN
+          - RED
+          - RED_EDGE_1
+          - RED_EDGE_2
+          - RED_EDGE_3
+          - NIR_BROAD
+          - NIR_NARROW
+          - CIRRUS
+          - SWIR_1
+          - SWIR_2
+        output_bands:
+         - BLUE
+         - GREEN
+         - RED
+         - NIR_NARROW
+         - SWIR_1
+         - SWIR_2
+        rgb_indices:
+          - 2
+          - 1
+          - 0
+        train_data_root: "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 3 (Benchmarking)/GEO-Bench-demo/datasets/sen1flloods11/S2L2AHand"
+        train_label_data_root: "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 3 (Benchmarking)/GEO-Bench-demo/datasets/sen1flloods11/LabelHand"
+        val_data_root: "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 3 (Benchmarking)/GEO-Bench-demo/datasets/sen1flloods11/S2L2AHand"
+        val_label_data_root: "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 3 (Benchmarking)/GEO-Bench-demo/datasets/sen1flloods11/LabelHand"
+        test_data_root: "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 3 (Benchmarking)/GEO-Bench-demo/datasets/sen1flloods11/S2L2AHand"
+        test_label_data_root: "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 3 (Benchmarking)/GEO-Bench-demo/datasets/sen1flloods11/LabelHand"
+        train_split: "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 3 (Benchmarking)/GEO-Bench-demo/datasets/sen1flloods11/splits/flood_handlabeled/flood_train_data.txt"
+        val_split: "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 3 (Benchmarking)/GEO-Bench-demo/datasets/sen1flloods11/splits/flood_handlabeled/flood_valid_data.txt"
+        test_split: "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 3 (Benchmarking)/GEO-Bench-demo/datasets/sen1flloods11/splits/flood_handlabeled/flood_test_data.txt"
+        check_stackability: false
+        img_grep: "*_S2L2AHand.tif"
+        label_grep: "*_LabelHand.tif"
+        no_label_replace: -1
+        no_data_replace: 0
+        means:
+          - 0.11076498225107874
+          - 0.13456047562676646
+          - 0.12477149645635542
+          - 0.3248933937526503
+          - 0.23118412840904512
+          - 0.15624583324071273
+        stds:
+          - 0.15469174852002912
+          - 0.13070592427323752
+          - 0.12786689586224442
+          - 0.13925781946803198
+          - 0.11303782829438778
+          - 0.10207461132314981
+        num_classes: 2
+        drop_last: True
+        train_transform:
+          - class_path: albumentations.D4
+          - class_path: albumentations.pytorch.ToTensorV2
+
+n_trials: 2
+save_models: False
+storage_uri: "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 3 (Benchmarking)/GEO-Bench-demo/mlflow"
+run_repetitions: 2
+optimization_space:
+  batch_size:
+    - 8
+    - 16
+    - 32
+  lr:
+    min: 6e-5
+    max: 1e-3
+    type: real
+    log: true
+  optimizer_hparams:
+    weight_decay:
+      min: 0
+      max: 0.4
+      type: real
