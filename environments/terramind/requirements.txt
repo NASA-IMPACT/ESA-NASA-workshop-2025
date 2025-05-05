@@ -1,2 +1,2 @@
-pip install git+https://github.com/IBM/terratorch.git
+git+https://github.com/IBM/terratorch.git
 gdown
