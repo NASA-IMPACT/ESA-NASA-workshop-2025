@@ -17,7 +17,6 @@ Each track have notebooks that can be ran in the provided environment and are se
 
 # Getting started
 1. Navigate to [Login URL](https://workshop-domain-wfs0nk4u.auth.us-west-2.amazoncognito.com/login?client_id=809mbkpbfj5mddgb7dismf3g0&response_type=code&scope=aws.cognito.signin.user.admin+openid+profile&redirect_uri=https://ngsa42o8k5.execute-api.us-west-2.amazonaws.com/invoke)
-![Login Page](images/login-1.png)
 2. Log in using the credential provided
 ![Login with username and password](images/login.png)
 3. Once the Studio starts, Click on JupyterLab
