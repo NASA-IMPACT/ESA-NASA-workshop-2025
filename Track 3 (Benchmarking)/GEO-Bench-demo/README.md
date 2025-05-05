@@ -1,10 +1,13 @@
 # TerraTorch Iterate and GEO-Bench-demo
+For this hands on, we will be using the terminal.
+1. Open `terminal` from the start page of jupyterlab environment.
+2. cd `"ESA-NASA-workshop-2025/Track 3 (Benchmarking)"`
 
 During the demo we will:
 
-1. Add new backbone to TerraTorch and run a simple experiment (i.e. using `terratorch fit ../configs/tiny_backbone.yml`);
-2. Use that backbone for HPO and repeat experiments, as per GEO-Bench protocol on one dataset via TerraTorch Iterate (i.e. using `terratorch iterate --repeat --hpo ../configs/tiny_backbone_iterate.yml`);
-3. Run the same on a couple of the datasets from GEO-Bench v1 using (`terratorch iterate --repeat --hpo ../configs/tiny_backbone_geobench.yml`)
+1. Add new backbone to TerraTorch and run a simple experiment (i.e. using `terratorch fit configs/tiny_backbone.yml`);
+2. Use that backbone for HPO and repeat experiments, as per GEO-Bench protocol on one dataset via TerraTorch Iterate (i.e. using `terratorch iterate --repeat --hpo configs/tiny_backbone_iterate.yml`);
+3. Run the same on a couple of the datasets from GEO-Bench v1 using (`terratorch iterate --repeat --hpo configs/tiny_backbone_geobench.yml`)
 
 # Setting up the environment.
 

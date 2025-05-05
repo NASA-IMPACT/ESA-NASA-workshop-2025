@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export BASE_PATH="/home/sagemaker/ESA-NASA-workshop-2025/Track 3 (Benchmarking)"
+export BASE_PATH="/home/sagemaker/ESA-NASA-workshop-2025/Track 3 (Benchmarking)/GEO-Bench-demo"
 
 export SEN_PATH="${BASE_PATH}/datasets/sen1floods11"
 export SEN_LABEL_PATH="${SEN_PATH}/LabelHand.zip"
