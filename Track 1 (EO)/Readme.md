@@ -4,6 +4,5 @@
     - Multi-temporal Data (Crop segmentation)
 - Prithvi-WxC  (smaller model) Sujit
     - Zero Shot
-- FastEO (TerraMind) JJ
+- FastEO (TerraMind) Benedikt
     - Multi-modal Disaster response using S1, S2
-

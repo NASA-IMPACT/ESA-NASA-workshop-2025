@@ -79,3 +79,5 @@ source /home/sagemaker/ESA-NASA-workshop-2025/setup/setup.sh
 [Please check the environment once the environments are set.](#environment-setup)
 
 **Notebooks are available for each track which can be ran in the jupyterlab environment.**
+
+**Note: Track 1 and Track 3 make heavy usage of `terratorch`. If help is required regarding terratorch in Track 1 and Track 3, help will be available in person or in [terratorch slack](https://join.slack.com/t/terratorch/shared_invite/zt-34uzp28xx-xz1VHvu9vCN1ffx7fd~dGw).**
