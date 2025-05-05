@@ -1,3 +1,2 @@
-git+https://github.com/IBM/terratorch.git
+git+https://github.com/IBM/terratorch.git@fix/geobench_data_modules
 git+https://github.com/IBM/terratorch-iterate.git
-torchgeo==0.6.2

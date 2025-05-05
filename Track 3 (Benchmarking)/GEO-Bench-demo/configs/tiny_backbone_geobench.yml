@@ -2,7 +2,7 @@ experiment_name: geobench_experiment
 custom_modules_path: "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 3 (Benchmarking)/GEO-Bench-demo/tiny_backbone"
 defaults:
   trainer_args:
-    max_epochs: 5
+    max_epochs: 1
     log_every_n_steps: 1
   terratorch_task:
     model_args:
@@ -24,7 +24,7 @@ tasks:
     datamodule:
       class_path: terratorch.datamodules.MEuroSATNonGeoDataModule
       init_args:
-        partition: 1.00x_train
+        partition: 0.10x_train
         train_transform:
           - class_path: albumentations.HorizontalFlip
             init_args:
@@ -51,7 +51,7 @@ tasks:
           - class_path: ToTensorV2
         batch_size: 16
         num_workers: 6
-        data_root: "/home/sagemaker-user/ESA-NASA-workshop-2025/Track3_Benchmarking/GEO-Bench-demo/datasets/geobench-1.0/classification_v1.0"
+        data_root: "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 3 (Benchmarking)/GEO-Bench-demo/datasets/geobench-1.0/classification_v1.0"
         bands:
           - "RED"
           - "GREEN"
@@ -71,7 +71,7 @@ tasks:
     datamodule:
       class_path: terratorch.datamodules.MNzCattleNonGeoDataModule
       init_args:
-        partition: 1.00x_train
+        partition: 0.10x_train
         train_transform:
           - class_path: albumentations.HorizontalFlip
             init_args:

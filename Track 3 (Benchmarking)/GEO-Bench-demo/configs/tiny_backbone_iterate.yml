@@ -2,7 +2,7 @@ experiment_name: quick_test3
 custom_modules_path: "/home/sagemaker-user/ESA-NASA-workshop-2025/Track 3 (Benchmarking)/GEO-Bench-demo/tiny_backbone"
 defaults:
   trainer_args:
-    max_epochs: 5
+    max_epochs: 1
     log_every_n_steps: 1
   terratorch_task:
     model_args:
