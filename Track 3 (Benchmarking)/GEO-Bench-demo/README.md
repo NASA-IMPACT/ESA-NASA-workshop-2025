@@ -13,7 +13,7 @@ During the demo we will:
 We need to setup a specific environment because we are pointing to the latest terratorch and terratorch iterate versions directly on git.
 
 ```
-python -m venv tt-it --system-site-packages
+python -m venv tt-it
 source tt-it/bin/activate
 pip install -r requirements.txt
 ```
