@@ -26,3 +26,4 @@ datasets
 transformers
 evaluate
 bert_score
+rouge_score
