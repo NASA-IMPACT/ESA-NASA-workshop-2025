@@ -10,6 +10,8 @@ scikit-learn
 marvin
 bitsandbytes
 datasets
+openpyxl
+hf_xet
 
 # EVE
 langchain_community
