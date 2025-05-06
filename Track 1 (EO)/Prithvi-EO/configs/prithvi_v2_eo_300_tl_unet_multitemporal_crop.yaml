@@ -25,8 +25,8 @@ trainer:
 data:
   class_path: terratorch.datamodules.MultiTemporalCropClassificationDataModule
   init_args:
-    batch_size: 8
-    num_workers: 2
+    batch_size: 4
+    num_workers: 4
     data_root: ../data/multi-temporal-crop-classification-subset
     expand_temporal_dimension: true
     use_metadata: false
@@ -71,7 +71,7 @@ model:
       num_classes: 13
     loss: ce
     ignore_index: -1
-    freeze_backbone: false
+    freeze_backbone: true
     freeze_decoder: false
 
 optimizer:
