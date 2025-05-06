@@ -26,7 +26,7 @@ data:
   class_path: GenericNonGeoSegmentationDataModule
   init_args:
     batch_size: 4
-    num_workers: 2
+    num_workers: 4
     dataset_bands:  # Dataset bands
       - BLUE
       - GREEN
@@ -99,7 +99,7 @@ model:
       num_classes: 2
     loss: focal
     ignore_index: -1
-    freeze_backbone: false
+    freeze_backbone: true
     freeze_decoder: false
 
 optimizer:

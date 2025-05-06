@@ -20,8 +20,8 @@ data:
   class_path: terratorch.datamodules.GenericMultiModalDataModule
   init_args:
     task: 'segmentation'
-    batch_size: 8
-    num_workers: 8
+    batch_size: 4
+    num_workers: 4
     modalities:
       - S2L1C
       - S1GRD
@@ -105,7 +105,7 @@ model:
       num_classes: 2
     loss: dice
     ignore_index: -1
-    freeze_backbone: false
+    freeze_backbone: true
     freeze_decoder: false
     class_names:
       - Others
