@@ -10,17 +10,6 @@ During the demo we will:
 
 # Setting up the environment.
 
-(Note: Conda environment should already be prepared for this hands on. However, if the environment is not already setup, please follow the following instructions.)
-
-Before running the following please check if the environment is setup using:
-
-```
-source /opt/conda/bin/activate
-conda activate geo_bench
-```
-
-If this results in an error, please follow the following set of commands to setup the environment.
-
 We need to setup a specific environment because we are pointing to the latest terratorch and terratorch iterate versions directly on git.
 
 ```
